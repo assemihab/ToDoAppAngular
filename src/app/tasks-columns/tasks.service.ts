@@ -1,5 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { todo } from './todo.model';
+import { fromFetch } from 'rxjs/fetch';
+import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
@@ -15,7 +17,18 @@ export class TasksService {
     this.tasks.update((currentTasks) => [...currentTasks, newTodo]);
   }
   getTodos() {
-    return this.tasks();
+    return fromFetch(
+      'https://firestore.googleapis.com/v1beta1/projects/todo-ab144/databases/(default)/documents/todos'
+    ).pipe(
+      // Handle the response and convert it to the desired format
+      map((response) => {
+        if (response.ok) {
+          return response.json().then((data) => data.documents || []);
+        } else {
+          throw new Error('Failed to fetch todos');
+        }
+      })
+    );
   }
   updateTodoStatus(index: number, status: 'pending' | 'completed') {}
   deleteTodo(id: number) {}
