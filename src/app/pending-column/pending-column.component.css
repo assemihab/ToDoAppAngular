@@ -1,0 +1,29 @@
+div {
+  width: 25rem;
+  max-width: 90%;
+}
+#todo-container i[class*="trash"] {
+  color: var(--gray);
+}
+button {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+button i {
+  color: var(--green);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+i:hover {
+  background: var(--semiopaque);
+  border-radius: 0.2rem;
+}

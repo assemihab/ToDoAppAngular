@@ -1,0 +1,32 @@
+.backdrop {
+  background-color: var(--semiopaque);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+#todo-form button {
+  margin: auto;
+  width: 10rem;
+  max-height: 80%;
+  max-width: 80%;
+  background-color: var(--beige);
+  color: var(--blue);
+  font-weight: bold;
+}
+
+dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-123%, -50%);
+  /* align-items: center; */
+  /* justify-content: center; */
+  border: none;
+  height: 12rem;
+  width: 20rem;
+  background-color: var(--white);
+  border-radius: 1rem;
+  padding: 2rem;
+}

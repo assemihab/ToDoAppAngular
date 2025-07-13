@@ -1,0 +1,21 @@
+<div
+  id="pending-todos-box"
+  class="m-4 d-flex flex-column align-items-center rounded p-4 justify-content-center border bg-light"
+>
+  <h2 class="">ToDoS</h2>
+  <div
+    class="d-flex flex-row align-items-center justify-content-center p-2 m-2"
+  >
+    <button class="sort-submit">
+      <i class="bi bi-sort-down"></i>
+    </button>
+
+    <button class="add-todo-label" (click)="addNewTodo()">
+      <i class="bi bi-plus-lg fs-4"></i>
+    </button>
+  </div>
+  <div
+    id="pending-todos-list"
+    class="pending-todos-list p-5 container border border-1 rounded"
+  ></div>
+</div>

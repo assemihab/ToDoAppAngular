@@ -1,0 +1,14 @@
+:root {
+  --beige: #f5f5dc;
+  --gray: #aaaaaa;
+  --blue: #007bff;
+  --green: #37a728;
+  --searchwidth: 20rem;
+  --buttonwidth: 3rem;
+  --skyblue: #78c1f3;
+  --white: #ffffff;
+  --semiopaque: rgba(0, 0, 0, 0.2);
+}
+body {
+  background-color: var(--skyblue);
+}

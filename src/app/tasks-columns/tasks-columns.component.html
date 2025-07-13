@@ -1,0 +1,11 @@
+<div
+  id="todo-container"
+  class="todos-cols d-flex flex-column align-items-center flex-md-row justify-content-center"
+>
+  <app-pending-column />
+  <app-completed-column />
+  @if(isAddingTasks){
+
+  <app-add-new />
+  }
+</div>
