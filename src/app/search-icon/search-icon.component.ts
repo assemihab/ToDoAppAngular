@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TasksService } from '../tasks-columns/tasks.service';
 
 @Component({
   selector: 'app-search-icon',
@@ -10,10 +11,10 @@ import { FormsModule } from '@angular/forms';
 })
 export class SearchIconComponent {
   searchCritiria = '';
-  constructor() {
-    console.log(this.searchCritiria);
-  }
+
+  constructor(private tasksServices: TasksService) {}
   onSearchChange() {
     console.log('Search criteria changed:', this.searchCritiria);
+    this.tasksServices.searchcritiriaa.update(() => this.searchCritiria);
   }
 }

@@ -6,7 +6,7 @@
   <div
     class="d-flex flex-row align-items-center justify-content-center p-2 m-2"
   >
-    <button class="sort-submit">
+    <button class="sort-submit" (click)="sortTodos()">
       <i class="bi bi-sort-down"></i>
     </button>
 
@@ -17,5 +17,16 @@
   <div
     id="pending-todos-list"
     class="pending-todos-list p-5 container border border-1 rounded"
-  ></div>
+  >
+    @if (!sorted) { @for (task of this.taskService.pendingTodos(); track
+    task.name) {
+    <li>
+      <app-task [data]="task"></app-task>
+    </li>
+    } } @else { @for (task of sortPendingTodos(); track task.name) {
+    <li>
+      <app-task [data]="task"></app-task>
+    </li>
+    } }
+  </div>
 </div>

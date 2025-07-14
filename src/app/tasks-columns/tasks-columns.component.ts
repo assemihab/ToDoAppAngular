@@ -12,4 +12,11 @@ import { AddNewComponent } from '../add-new/add-new.component';
 })
 export class TasksColumnsComponent {
   isAddingTasks: boolean = false;
+
+  onAddNew() {
+    this.isAddingTasks = true;
+  }
+  onCancelNew() {
+    this.isAddingTasks = false;
+  }
 }
