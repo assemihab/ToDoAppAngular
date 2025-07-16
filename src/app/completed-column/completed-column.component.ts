@@ -12,13 +12,11 @@ import { TaskComponent } from '../task/task.component';
   styleUrl: '../pending-column/pending-column.component.css',
 })
 export class CompletedColumnComponent {
+  sorted=this.taskService.completedsorted;
   constructor(private taskService: TasksService) {}
   completedTodos = this.taskService.completedTodos;
-  sorted = false;
-  sortCompletedTodos = computed(() =>
-    this.completedTodos().sort((a, b) => a.priority - b.priority)
-  );
+  
   sortTodos() {
-    this.sorted = !this.sorted;
+    this.sorted.update((value) => !value);
   }
 }

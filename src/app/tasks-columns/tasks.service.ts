@@ -9,31 +9,42 @@ import { from, of } from 'rxjs';
 export class TasksService {
   tasks = signal<todo[]>([]);
   searchcritiriaa = signal<string>('');
-  
+  pendingsorted = signal(false);
+  completedsorted = signal(false);
 
-  readonly pendingTodos = computed(() =>
-    this.tasks().filter(
-      (todo) =>
-        todo.status === 'pending' && todo.name.includes(this.searchcritiriaa())
-    )
+  readonly pendingTodos = computed(() => {
+    const search = this.searchcritiriaa(); 
+    const todos = this.tasks().filter(
+      (todo) => todo.status === 'pending' && todo.name.includes(search)
+    );
+
+    if (!this.pendingsorted()) {
+      return todos;
+    }
+
+    return [...todos].sort((a, b) => a.priority - b.priority); 
+  }
   );
-  readonly completedTodos = computed(() =>
-    this.tasks().filter(
-      (todo) =>
-        todo.status === 'completed' &&
-        todo.name.includes(this.searchcritiriaa())
-    )
-  );
+  readonly completedTodos = computed(() => {
+    const search = this.searchcritiriaa(); 
+    const todos = this.tasks().filter(
+      (todo) => todo.status === 'completed' && todo.name.includes(search)
+    );
+    if (!this.completedsorted()) {
+      return todos;
+    }
+    return [...todos].sort((a, b) => a.priority - b.priority); 
+  });
   // https://firestore.googleapis.com/v1beta1/projects/todo-ab144/databases/(default)/documents/todos?documentId=${documentID}
   addTodo(todo: todoNoId, objectID?: string) {
     const randomidstring = objectID;
     console.log('the todo to add', todo);
-    const UID= JSON.parse(localStorage.getItem('authData')!).localId;
+    const UID = JSON.parse(localStorage.getItem('authData')!).localId;
     //https://firestore.googleapis.com
 
     return fromFetch(
       `https://firestore.googleapis.com/v1/projects/todo-2a989/databases/(default)/documents/users/${UID}/todos?documentId=` +
-        randomidstring,
+      randomidstring,
       {
         method: 'POST',
         body: JSON.stringify({
@@ -88,7 +99,7 @@ export class TasksService {
       status,
     };
     const UID = JSON.parse(localStorage.getItem('authData')!).localId;
-// https://firestore.googleapis.com/v1/projects/todo-2a989/databases/(default)/documents/users/{userId}/todos
+    // https://firestore.googleapis.com/v1/projects/todo-2a989/databases/(default)/documents/users/{userId}/todos
     return fromFetch(
       `https://firestore.googleapis.com/v1beta1/projects/todo-2a989/databases/(default)/documents/users/${UID}/todos/${id}?updateMask.fieldPaths=status`,
       {

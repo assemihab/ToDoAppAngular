@@ -17,16 +17,10 @@
   <div
     id="pending-todos-list"
     class="pending-todos-list p-5 container border border-1 rounded"
-  >
-    @if (!sorted) { @for (task of this.taskService.pendingTodos(); track
-    task.name) {
+  > @for (task of this.taskService.pendingTodos(); track task.name) {
     <li>
       <app-task [data]="task"></app-task>
     </li>
-    } } @else { @for (task of sortPendingTodos(); track task.name) {
-    <li>
-      <app-task [data]="task"></app-task>
-    </li>
-    } }
+  }
   </div>
 </div>

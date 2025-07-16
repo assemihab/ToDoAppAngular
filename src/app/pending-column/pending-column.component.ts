@@ -4,6 +4,7 @@ import {
   EventEmitter,
   output,
   computed,
+  signal,
 } from '@angular/core';
 import { TaskComponent } from '../task/task.component';
 import { TaskStatus } from '../tasks-columns/todo.model';
@@ -20,13 +21,11 @@ import { TasksService } from '../tasks-columns/tasks.service';
 export class PendingColumnComponent {
   // dataa: todo = { id: '1', name: 'assem', priority: 3, status: 'pending' };
   @Output() addTodo = new EventEmitter();
-  sorted = false;
+  sorted = this.taskService.pendingsorted;
   constructor(public taskService: TasksService) {}
-  sortPendingTodos = computed(() =>
-    this.taskService.pendingTodos().sort((a, b) => a.priority - b.priority)
-  );
+  
   sortTodos() {
-    this.sorted = !this.sorted;
+    this.sorted.update((value) => !value);
   }
 
   addNewTodo() {
