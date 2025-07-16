@@ -1,0 +1,26 @@
+p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0.5rem;
+}
+p:hover {
+  overflow: visible;
+}
+i[class*="trash"] {
+  color: var(--gray);
+}
+
+button {
+  border: none;
+  background-color: transparent;
+}
+button:hover {
+  background: var(--semiopaque);
+  border-radius: 0.2rem;
+}
+div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

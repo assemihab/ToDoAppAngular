@@ -1,0 +1,27 @@
+<div
+  id="completed-todos-box"
+  class="m-4 d-flex flex-column align-items-center rounded p-4 justify-content-center border bg-light"
+>
+  <h2>DoNe</h2>
+  <div
+    class="d-flex flex-row align-items-center justify-content-center p-2 m-2"
+  >
+    <button class="sort-submit">
+      <i class="bi bi-sort-down"></i>
+    </button>
+  </div>
+  <div
+    id="completed-todos-list"
+    class="pending-todos-list p-5 container border border-1 rounded text-decoration-line-through"
+  >
+    @if(sorted) { @for (task of completedTodos(); track task.name) {
+    <li>
+      <app-task [data]="task"></app-task>
+    </li>
+    } } @else { @for (task of sortCompletedTodos(); track task.name) {
+    <li>
+      <app-task [data]="task"></app-task>
+    </li>
+    } }
+  </div>
+</div>

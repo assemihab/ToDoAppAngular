@@ -1,0 +1,20 @@
+/* Fullscreen centering */
+.login-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:100vh
+}
+
+/* The form container box */
+.form-container {
+  background-color:var(--white);
+padding:2rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  /* gap: 1px; */
+  min-width: 5rem;
+  width: 70%;
+  max-width: 25rem;
+}
