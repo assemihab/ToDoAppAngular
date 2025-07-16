@@ -9,6 +9,7 @@ import { from, of } from 'rxjs';
 export class TasksService {
   tasks = signal<todo[]>([]);
   searchcritiriaa = signal<string>('');
+  
 
   readonly pendingTodos = computed(() =>
     this.tasks().filter(
@@ -54,7 +55,7 @@ export class TasksService {
       catchError((err) => {
         console.error('Error adding todo:', err);
         window.alert('Error adding todo');
-        return of(null);
+        throw new Error("failed to add todo")
       })
     );
   }
@@ -105,7 +106,7 @@ export class TasksService {
       catchError((err) => {
         console.error('Error updating todo status:', err);
         window.alert('Error updating todo status');
-        return of(null);
+        throw new Error("failed to update todos")
       })
     );
   }
@@ -131,7 +132,7 @@ export class TasksService {
       catchError((err) => {
         console.error('Error deleting todo:', err);
         window.alert('Error deleting todo');
-        return of(null);
+        throw new Error("error deleting todo")
       })
     );
   }
