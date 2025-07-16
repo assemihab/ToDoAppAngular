@@ -24,3 +24,7 @@ div {
   flex-direction: row;
   justify-content: space-between;
 }
+mat-spinner{
+  width: 0.2rem;
+  height: 0.2rem;
+}

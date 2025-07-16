@@ -1,12 +1,21 @@
+
 <div>
-  <input
-    type="checkbox"
-    [checked]="data().status === 'completed'"
-    (change)="toggleStatus($event)"
-    class="todo-checkbox"
-  />
+  @if(isLoading()) {
+    <mat-spinner [diameter]="20"></mat-spinner>
+  }
+  @else{
+    <input
+      type="checkbox"
+      [checked]="data().status === 'completed'"
+      (change)="toggleStatus($event)"
+      class="todo-checkbox"
+    />
+
+  }
+
+
   <p class="todo-text">{{ data().name }}</p>
-  <button class="delete-btn btn btn-danger" (click)="deleteTodo()">
+  <button class="delete-btn btn btn-danger" (click)="deleteTodo() ">
     <i class="bi bi-trash"></i>
   </button>
 </div>
