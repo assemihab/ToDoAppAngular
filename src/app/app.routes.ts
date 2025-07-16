@@ -6,15 +6,22 @@ import { authGuard } from './core/auth.guard';
 // import { AuthGuard } from './core/auth.guard';
 
 export const routes: Routes = [
+    
     {
-        path:'',
-        component:LoginPageComponent
+        path: '',
+        redirectTo: 'login',
+        pathMatch: 'full'
+    },
+    {
+        path: 'login',
+        component: LoginPageComponent,
+
     },
 
     {
         path: 'tasks',
-        loadComponent: ()=>import('./tasks-columns/tasks-columns.component').then((mod=>mod.TasksColumnsComponent)),
+        loadComponent: () => import('./tasks-columns/tasks-columns.component').then((mod => mod.TasksColumnsComponent)),
         canActivate: [authGuard]
-        
-    }
+
+    },
 ];

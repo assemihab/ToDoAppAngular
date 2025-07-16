@@ -5,7 +5,12 @@ import { AuthService } from './auth.service';
 
 
 export const authGuard: CanActivateFn = (route, state) => {
-  const isRegistered=JSON.parse(localStorage.getItem('authData')!).registered;
+  let isRegistered:boolean
+  if (!localStorage.getItem('authData')) {
+    isRegistered = false;
+  } else {
+    isRegistered = JSON.parse(localStorage.getItem('authData')!).registered;
+  }
   const authService=inject(AuthService)
   const router = inject(Router);
   const isTokenExpired = authService.isTokenExpired();
@@ -13,7 +18,7 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   if (!isRegistered || isTokenExpired) {
     authService.clearExpiredToken();
-    router.navigate(['/login']);
+    router.navigate(['/']);
     return false;
   }
 

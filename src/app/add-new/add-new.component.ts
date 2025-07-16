@@ -42,6 +42,7 @@ export class AddNewComponent {
         console.log('Todo addition completed');
       },
     });
+    this.cancel.emit();
   }
   onCancel() {
     this.cancel.emit();
