@@ -74,7 +74,7 @@ xdescribe('TasksService', () => {
         expect(console.log).toHaveBeenCalledWith('Sorting todos');
     });
 
-    // Integration tests for HTTP methods (mocked)
+
     it('should handle addTodo error', (done) => {
         spyOn(window, 'alert');
         spyOn<any>(service, 'addTodo').and.returnValue(throwError(() => new Error('Failed')));
