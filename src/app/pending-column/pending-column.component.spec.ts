@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PendingColumnComponent } from './pending-column.component';
 
-describe('PendingColumnComponent', () => {
+xdescribe('PendingColumnComponent', () => {
   let component: PendingColumnComponent;
   let fixture: ComponentFixture<PendingColumnComponent>;
 

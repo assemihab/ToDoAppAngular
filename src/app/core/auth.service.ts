@@ -1,8 +1,5 @@
 import { Injectable } from "@angular/core";
-// import 'rxjs/add/operator/toPromise';
-import { Auth } from '@angular/fire/auth';
-import * as firebase from 'firebase/app';
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { environment } from "../../environments/environment"; // Adjust the path as necessary
 
 @Injectable(
