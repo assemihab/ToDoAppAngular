@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddNewComponent } from './add-new.component';
 
-xdescribe('AddNewComponent', () => {
+describe('AddNewComponent', () => {
   let component: AddNewComponent;
   let fixture: ComponentFixture<AddNewComponent>;
 
@@ -15,6 +15,7 @@ xdescribe('AddNewComponent', () => {
     fixture = TestBed.createComponent(AddNewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    //commit comment
   });
 
   it('should create', () => {

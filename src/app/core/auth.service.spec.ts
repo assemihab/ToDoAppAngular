@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment'; // adjust path as needed
 import { mockCredentials, mockResponse } from '../mock/mock-data';
 
-fdescribe('AuthService', () => {
+describe('AuthService', () => {
   let service: AuthService;
   let httpMock: HttpTestingController;
 
