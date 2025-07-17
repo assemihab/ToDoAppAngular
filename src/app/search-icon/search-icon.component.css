@@ -40,8 +40,7 @@
 }
 
 .search-submit {
-  /* justify-content: center; */
-  /* align-items: center; */
+
   position: relative;
   transform: translate(5%, 0);
   font-size: 1rem;
