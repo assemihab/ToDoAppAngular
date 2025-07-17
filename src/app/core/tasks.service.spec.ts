@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { TasksService } from './tasks.service';
-import { todo } from './todo.model';
+// import { todo } from '../models/todo.model';
 import { of, throwError } from 'rxjs';
 
 xdescribe('TasksService', () => {
