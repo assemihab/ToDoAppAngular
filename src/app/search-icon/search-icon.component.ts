@@ -1,6 +1,6 @@
 import { Component, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TasksService } from '../tasks-columns/tasks.service';
+import { TasksService } from '../core/tasks.service';
 
 @Component({
   selector: 'app-search-icon',

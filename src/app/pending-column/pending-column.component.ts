@@ -7,9 +7,9 @@ import {
   signal,
 } from '@angular/core';
 import { TaskComponent } from '../task/task.component';
-import { TaskStatus } from '../tasks-columns/todo.model';
-import { todo } from '../tasks-columns/todo.model';
-import { TasksService } from '../tasks-columns/tasks.service';
+import { TaskStatus } from '../models/todo.model';
+import { todo } from '../models/todo.model';
+import { TasksService } from '../core/tasks.service';
 
 @Component({
   selector: 'app-pending-column',

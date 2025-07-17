@@ -1,6 +1,6 @@
 import { Component, input, signal, computed } from '@angular/core';
-import { todo } from '../tasks-columns/todo.model';
-import { TasksService } from '../tasks-columns/tasks.service';
+import { todo } from '../models/todo.model';
+import { TasksService } from '../core/tasks.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({

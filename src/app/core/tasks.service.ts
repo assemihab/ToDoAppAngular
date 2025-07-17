@@ -1,5 +1,5 @@
 import { computed, Injectable, signal } from '@angular/core';
-import { todo, todoNoId } from './todo.model';
+import { todo, todoNoId } from '../models/todo.model';
 import { fromFetch } from 'rxjs/fetch';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { from, of } from 'rxjs';

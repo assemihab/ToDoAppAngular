@@ -3,8 +3,8 @@ import { PendingColumnComponent } from '../pending-column/pending-column.compone
 import { CompletedColumnComponent } from '../completed-column/completed-column.component';
 import { AddNewComponent } from '../add-new/add-new.component';
 import { SearchIconComponent } from '../search-icon/search-icon.component';
-import { TasksService } from './tasks.service';
-import {todo} from './todo.model';
+import { TasksService } from '../core/tasks.service';
+import {todo} from '../models/todo.model';
 
 @Component({
   selector: 'app-tasks-columns',

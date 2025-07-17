@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TasksColumnsComponent } from './tasks-columns/tasks-columns.component';
-import { AddNewComponent } from './add-new/add-new.component';
-import { TasksService } from './tasks-columns/tasks.service';
+
 import { OnInit } from '@angular/core';
-import { todo } from './tasks-columns/todo.model';
+
 
 
 @Component({

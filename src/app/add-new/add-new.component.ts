@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { TasksService } from '../tasks-columns/tasks.service';
+import { TasksService } from '../core/tasks.service';
 import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-add-new',
