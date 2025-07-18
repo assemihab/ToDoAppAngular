@@ -3,6 +3,7 @@ import { todo, todoNoId } from '../models/todo.model';
 import { fromFetch } from 'rxjs/fetch';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { from, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
@@ -11,6 +12,7 @@ export class TasksService {
   searchcritiriaa = signal<string>('');
   pendingsorted = signal(false);
   completedsorted = signal(false);
+  constructor(private http:HttpClient){}
 
   readonly pendingTodos = computed(() => {
     const search = this.searchcritiriaa(); 
@@ -40,56 +42,25 @@ export class TasksService {
     const randomidstring = objectID;
     console.log('the todo to add', todo);
     const UID = JSON.parse(localStorage.getItem('authData')!).localId;
+    const URL= `https://firestore.googleapis.com/v1beta1/projects/todo-2a989/databases/(default)/documents/users/${UID}/todos?documentId=${randomidstring}`;
     //https://firestore.googleapis.com
-
-    return fromFetch(
-      `https://firestore.googleapis.com/v1/projects/todo-2a989/databases/(default)/documents/users/${UID}/todos?documentId=` +
-      randomidstring,
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          fields: {
-            name: { stringValue: todo.name },
-            priority: { integerValue: todo.priority },
-            status: { stringValue: todo.status },
-          },
-        }),
-        headers: { 'Content-Type': 'application/json' },
+    const headers = {
+      'Content-Type': 'application/json'
+    };
+    const body = {
+      fields: {
+        name: { stringValue: todo.name },
+        priority: { integerValue: todo.priority },
+        status: { stringValue: todo.status },
       }
-    ).pipe(
-      switchMap((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to add todo');
-        }
-        return from(response.json());
-      }),
-      catchError((err) => {
-        console.error('Error adding todo:', err);
-        window.alert('Error adding todo');
-        throw new Error("failed to add todo")
-      })
-    );
+    };
+    return this.http.post(URL, body, { headers: headers })
   }
   getTodos() {
     const UID = JSON.parse(localStorage.getItem('authData')!).localId;
     //https://firestore.googleapis.com/v1/projects/todo-2a989/databases/(default)/documents/users/{userId}/todos
-    return fromFetch(
-      `https://firestore.googleapis.com/v1beta1/projects/todo-2a989/databases/(default)/documents/users/${UID}/todos`,
-    ).pipe(
-      switchMap((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch todos');
-        }
-        return from(response.json()); // Converts Promise to Observable ✅
-      }),
-      map((data) => data.documents || []),
-
-      catchError((err) => {
-        console.error('Error fetching todos:', err);
-        window.alert('Error fetching todos');
-        return of([]); // fallback value
-      })
-    );
+    const URL=`https://firestore.googleapis.com/v1beta1/projects/todo-2a989/databases/(default)/documents/users/${UID}/todos`
+    return this.http.get<{ documents: any[] }>(URL)
   }
   // https://firestore.googleapis.com/v1beta1/projects/todo-ab144/databases/(default)/documents/todos/${objectID}?updateMask.fieldPaths=${fieldPaths}
   updateTodoStatus(id: string, status: 'pending' | 'completed') {
@@ -98,54 +69,27 @@ export class TasksService {
       priority: this.tasks().find((todo) => todo.id === id)?.priority || 0,
       status,
     };
-    const UID = JSON.parse(localStorage.getItem('authData')!).localId;
-    // https://firestore.googleapis.com/v1/projects/todo-2a989/databases/(default)/documents/users/{userId}/todos
-    return fromFetch(
-      `https://firestore.googleapis.com/v1beta1/projects/todo-2a989/databases/(default)/documents/users/${UID}/todos/${id}?updateMask.fieldPaths=status`,
-      {
-        method: 'PATCH',
-        body: JSON.stringify({ fields: { status: { stringValue: status } } }),
-        headers: { 'Content-Type': 'application/json' },
+    const body = {
+      fields: {
+        status: { stringValue: status }
       }
-    ).pipe(
-      switchMap((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to update todo status');
-        }
-        return of(updatedTodo);
-      }),
-      catchError((err) => {
-        console.error('Error updating todo status:', err);
-        window.alert('Error updating todo status');
-        throw new Error("failed to update todos")
-      })
-    );
+    };
+    const headers = {
+      'Content-Type': 'application/json'
+    };
+    const UID = JSON.parse(localStorage.getItem('authData')!).localId;
+    const URL= `https://firestore.googleapis.com/v1beta1/projects/todo-2a989/databases/(default)/documents/users/${UID}/todos/${id}?updateMask.fieldPaths=status`;
+    // https://firestore.googleapis.com/v1/projects/todo-2a989/databases/(default)/documents/users/{userId}/todos
+    return this.http.patch(URL, body, { headers: headers })
+    
   }
   // https://firestore.googleapis.com/v1beta1/projects/todo-ab144/databases/(default)/documents/todos/${documentID}
 
   deleteTodo(id: string) {
     const UID = JSON.parse(localStorage.getItem('authData')!).localId;
-    return fromFetch(
-      `https://firestore.googleapis.com/v1beta1/projects/todo-2a989/databases/(default)/documents/users/${UID}/todos/${id}`,
-      {
-        method: 'DELETE',
-      }
-    ).pipe(
-      switchMap((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to delete todo');
-        }
-        this.tasks.update((currentTasks) =>
-          currentTasks.filter((todo) => todo.id !== id)
-        );
-        return of(null);
-      }),
-      catchError((err) => {
-        console.error('Error deleting todo:', err);
-        window.alert('Error deleting todo');
-        throw new Error("error deleting todo")
-      })
-    );
+    const URL = `https://firestore.googleapis.com/v1beta1/projects/todo-2a989/databases/(default)/documents/users/${UID}/todos/${id}`;
+    return this.http.delete(URL);
+       
   }
   sortTodos() {
     // Logic to sort todos

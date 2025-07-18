@@ -22,7 +22,8 @@ export class TasksColumnsComponent implements OnInit   {
         // const pendingTodos = this.taskService.getPendingTodos(response);
 
         const todos: todo[] = [];
-        for (const doc of response) {
+        console.log('response', response);
+        for (const doc of response.documents) {
           const fields = doc.fields;
           const idd = doc.name.split('/').pop();
 
