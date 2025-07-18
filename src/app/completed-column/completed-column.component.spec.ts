@@ -28,6 +28,8 @@ describe('CompletedColumnComponent', () => {
   });
   it('should have completedTodos from taskService', () => {
     expect(component.completedTodos()).toEqual(taskService.completedTodos());
+    // the length of completedTodos should be 3
+    expect(component.completedTodos().length).toBe(3);
   });
   it('should toggle sorted state on sortTodos', () => {
     const initialSortedState = component.sorted();
@@ -42,14 +44,15 @@ describe('CompletedColumnComponent', () => {
     expect(component.sorted()).toBe(!initialSortedState);
   });
   it("the child should be unsorted on init but after the sort button is pressed it should be sorted", () => {
-    const childComponents = fixture.debugElement.queryAll(By.css('app-task'));
-    console.log('childComponents:', childComponents);
-    childComponents.forEach((de, i) => {
-      console.log(`Component ${i}:`, de.componentInstance.todo);
-    });
-    const sortButton = fixture.debugElement.nativeElement.querySelector('.sort-submit');
-    sortButton.click();
-    fixture.detectChanges();
+    console.log('initial sorted state:', component.completedTodos());
+    // const childComponents = fixture.debugElement.queryAll(By.css('app-task'));
+    // console.log('childComponents:', childComponents);
+    // childComponents.forEach((de, i) => {
+      // console.log(`Component ${i}:`, de.componentInstance.data);
+    // });
+    // const sortButton = fixture.debugElement.nativeElement.querySelector('.sort-submit');
+    // sortButton.click();
+    // fixture.detectChanges();
 
   });
 
