@@ -12,8 +12,8 @@ export class AddNewComponent {
   @Output() cancel = new EventEmitter();
   constructor(private taskService: TasksService) {}
   name = '';
-  priority: number = 1;
-  status: string = 'pending';
+  priority = 1;
+  status = 'pending';
 
   onSubmit() {
     console.log(
