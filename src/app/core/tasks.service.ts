@@ -43,7 +43,7 @@ export class TasksService {
     console.log('the todo to add', todo);
     const UID = JSON.parse(localStorage.getItem('authData')!).localId;
     const URL= `https://firestore.googleapis.com/v1beta1/projects/todo-2a989/databases/(default)/documents/users/${UID}/todos?documentId=${randomidstring}`;
-    //https://firestore.googleapis.com
+
     const headers = {
       'Content-Type': 'application/json'
     };
@@ -90,13 +90,5 @@ export class TasksService {
     const URL = `https://firestore.googleapis.com/v1beta1/projects/todo-2a989/databases/(default)/documents/users/${UID}/todos/${id}`;
     return this.http.delete(URL);
        
-  }
-  sortTodos() {
-    // Logic to sort todos
-    console.log('Sorting todos');
-  }
-  filter(criteria: string) {
-    console.log('Filtering todos with criteria:', criteria);
-    return this.tasks().filter((todo) => todo.name.includes(criteria));
   }
 }

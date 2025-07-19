@@ -14,7 +14,6 @@ export class SearchIconComponent {
 
   constructor(private tasksServices: TasksService) {}
   onSearchChange() {
-    console.log('Search criteria changed:', this.searchCritiria);
     this.tasksServices.searchcritiriaa.update(() => this.searchCritiria);
   }
 }

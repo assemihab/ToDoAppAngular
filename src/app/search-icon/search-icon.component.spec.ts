@@ -1,14 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchIconComponent } from './search-icon.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-xdescribe('SearchIconComponent', () => {
+describe('SearchIconComponent', () => {
   let component: SearchIconComponent;
   let fixture: ComponentFixture<SearchIconComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SearchIconComponent]
+      imports: [SearchIconComponent,HttpClientTestingModule],
     })
     .compileComponents();
     

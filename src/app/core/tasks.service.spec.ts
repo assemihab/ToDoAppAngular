@@ -2,121 +2,58 @@ import { TestBed } from '@angular/core/testing';
 import { TasksService } from './tasks.service';
 // import { todo } from '../models/todo.model';
 import { of, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { mockTodos } from '../mock/mock-data';
+import { PartialMockTasksService } from '../mock/partialMockTasksServce.service';
 
-xdescribe('TasksService', () => {
+describe('TasksService', () => {
     let service: TasksService;
-
+    let httpMock: HttpTestingController;
+    let testingsort: PartialMockTasksService;
     beforeEach(() => {
-        TestBed.configureTestingModule({});
+        TestBed.configureTestingModule({
+            imports: [HttpClientTestingModule],
+            providers: [TasksService, PartialMockTasksService]
+        });
         service = TestBed.inject(TasksService);
-        spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ localId: 'testUID' }));
+        httpMock = TestBed.inject(HttpTestingController);
+        testingsort= TestBed.inject(PartialMockTasksService);
     });
+    it('test if the pending todos are computed correctly', () => {
+    const mockTodoss = mockTodos;
+    service.tasks.set(mockTodoss);
+    service.searchcritiriaa.set('');
+    service.pendingsorted.set(false);
+    const pendingTodos = service.pendingTodos();
+    expect(pendingTodos.length).toBe(3);
+    expect(pendingTodos[0].name).toBe('Mock Task 1');
+    expect(pendingTodos[1].name).toBe('Mock Task 3');
+    expect(pendingTodos[2].name).toBe('Mock Task 5');
+    service.searchcritiriaa.set('Task 1');
+    const filteredPendingTodos = service.pendingTodos();
+    expect(filteredPendingTodos.length).toBe(1);
+    expect(filteredPendingTodos[0].name).toBe('Mock Task 1');
 
-    it('should be created', () => {
-        expect(service).toBeTruthy();
     });
-
-    it('should filter pending todos', () => {
-        service.tasks.set([
-            { id: '1', name: 'Task 1', priority: 1, status: 'pending' },
-            { id: '2', name: 'Task 2', priority: 2, status: 'completed' }
-        ]);
+    it('test if the completed todos are computed correctly', () => {
+        const mockTodoss = mockTodos;
+        service.tasks.set(mockTodoss);
         service.searchcritiriaa.set('');
-        expect(service.pendingTodos().length).toBe(1);
-        expect(service.pendingTodos()[0].name).toBe('Task 1');
-    });
-
-    it('should filter completed todos', () => {
-        service.tasks.set([
-            { id: '1', name: 'Task 1', priority: 1, status: 'pending' },
-            { id: '2', name: 'Task 2', priority: 2, status: 'completed' }
-        ]);
-        service.searchcritiriaa.set('');
-        expect(service.completedTodos().length).toBe(1);
-        expect(service.completedTodos()[0].name).toBe('Task 2');
-    });
-
-    it('should sort pending todos by priority', () => {
-        service.tasks.set([
-            { id: '1', name: 'A', priority: 2, status: 'pending' },
-            { id: '2', name: 'B', priority: 1, status: 'pending' }
-        ]);
-        service.pendingsorted.set(true);
-        service.searchcritiriaa.set('');
-        const sorted = service.pendingTodos();
-        expect(sorted[0].priority).toBe(1);
-        expect(sorted[1].priority).toBe(2);
-    });
-
-    it('should filter todos by search criteria', () => {
-        service.tasks.set([
-            { id: '1', name: 'Alpha', priority: 1, status: 'pending' },
-            { id: '2', name: 'Beta', priority: 2, status: 'pending' }
-        ]);
-        service.searchcritiriaa.set('Alpha');
-        expect(service.pendingTodos().length).toBe(1);
-        expect(service.pendingTodos()[0].name).toBe('Alpha');
-    });
-
-    it('should filter todos using filter method', () => {
-        service.tasks.set([
-            { id: '1', name: 'Alpha', priority: 1, status: 'pending' },
-            { id: '2', name: 'Beta', priority: 2, status: 'pending' }
-        ]);
-        const filtered = service.filter('Alpha');
-        expect(filtered.length).toBe(1);
-        expect(filtered[0].name).toBe('Alpha');
-    });
-
-    it('should call sortTodos', () => {
-        spyOn(console, 'log');
-        service.sortTodos();
-        expect(console.log).toHaveBeenCalledWith('Sorting todos');
+        service.completedsorted.set(false);
+        const completedTodos = service.completedTodos();
+        expect(completedTodos.length).toBe(3);
+        expect(completedTodos[0].name).toBe('Mock Task 2');
+        expect(completedTodos[1].name).toBe('Mock Task 4');
+        expect(completedTodos[2].name).toBe('Mock Task 6');
+        service.searchcritiriaa.set('Task 2');
+        const filteredCompletedTodos = service.completedTodos();
+        expect(filteredCompletedTodos.length).toBe(1);
+        expect(filteredCompletedTodos[0].name).toBe('Mock Task 2');
     });
 
 
-    it('should handle addTodo error', (done) => {
-        spyOn(window, 'alert');
-        spyOn<any>(service, 'addTodo').and.returnValue(throwError(() => new Error('Failed')));
-        service.addTodo({ name: 'Test', priority: 1, status: 'pending' }).subscribe({
-            error: (err) => {
-                expect(window.alert).toHaveBeenCalledWith('Error adding todo');
-                done();
-            }
-        });
-    });
 
-    it('should handle getTodos error', (done) => {
-        spyOn(window, 'alert');
-        spyOn<any>(service, 'getTodos').and.returnValue(throwError(() => new Error('Failed')));
-        service.getTodos().subscribe({
-            next: () => {},
-            error: () => {
-                expect(window.alert).toHaveBeenCalledWith('Error fetching todos');
-                done();
-            }
-        });
-    });
 
-    it('should handle updateTodoStatus error', (done) => {
-        spyOn(window, 'alert');
-        spyOn<any>(service, 'updateTodoStatus').and.returnValue(throwError(() => new Error('Failed')));
-        service.updateTodoStatus('1', 'completed').subscribe({
-            error: () => {
-                expect(window.alert).toHaveBeenCalledWith('Error updating todo status');
-                done();
-            }
-        });
-    });
-
-    it('should handle deleteTodo error', (done) => {
-        spyOn(window, 'alert');
-        spyOn<any>(service, 'deleteTodo').and.returnValue(throwError(() => new Error('Failed')));
-        service.deleteTodo('1').subscribe({
-            error: () => {
-                expect(window.alert).toHaveBeenCalledWith('Error deleting todo');
-                done();
-            }
-        });
-    });
+    
 });

@@ -8,17 +8,7 @@ import { Task } from 'zone.js/lib/zone-impl';
 import { TaskComponent } from '../task/task.component';
 import { By } from '@angular/platform-browser';
 
-function isSorted(objects: any[], key: string): boolean {
-  for (let i = 0; i < objects.length - 1; i++) {
-    if (
-      objects[i].componentInstance.data()[key] >
-      objects[i + 1].componentInstance.data()[key]
-    ) {
-      return false;
-    }
-  }
-  return true;
-}
+
 describe('CompletedColumnComponent', () => {
   let component: CompletedColumnComponent;
   let fixture: ComponentFixture<CompletedColumnComponent>;
@@ -58,7 +48,7 @@ describe('CompletedColumnComponent', () => {
     let childComponents = fixture.debugElement.queryAll(
       By.directive(TaskComponent)
     );
-    expect(isSorted(childComponents, 'priority')).toBe(false);
+    expect(taskService.isSorted(childComponents, 'priority')).toBe(false);
     const sortButton =
       fixture.debugElement.nativeElement.querySelector('.sort-submit');
     sortButton.click();
@@ -67,6 +57,6 @@ describe('CompletedColumnComponent', () => {
     childComponents = fixture.debugElement.queryAll(
       By.directive(TaskComponent)
     );
-    expect(isSorted(childComponents, 'priority')).toBe(true);
+    expect(taskService.isSorted(childComponents, 'priority')).toBe(true);
   });
 });

@@ -15,12 +15,10 @@ import {todo} from '../models/todo.model';
 })
 export class TasksColumnsComponent implements OnInit   {
   isAddingTasks: boolean = false;
-    constructor(private taskService: TasksService) {}
+    constructor(public taskService: TasksService) {}
   ngOnInit() {
     this.taskService.getTodos().subscribe({
       next: (response) => {
-        // const pendingTodos = this.taskService.getPendingTodos(response);
-
         const todos: todo[] = [];
         console.log('response', response);
         for (const doc of response.documents) {
@@ -44,7 +42,6 @@ export class TasksColumnsComponent implements OnInit   {
       complete: () => {
         console.log('todosare fetched successfully');
       },
-      // Handle the response as needed
     });
   }
 

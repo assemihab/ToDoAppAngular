@@ -37,29 +37,15 @@ export class LoginPageComponent {
         localStorage.setItem('authData', JSON.stringify(res));
         const now = new Date().getTime();
         const expiryInSeconds = parseInt(res.expiresIn);
-        // const expiryInSeconds=10;
         localStorage.setItem('token_expiry', (now + expiryInSeconds * 1000).toString());
         this.router.navigate(['/tasks']);
       }
       , error: (err) => {
         console.error('Login failed', err);
-        // Handle login error
+        alert('Login failed: ' + err.error.error.message);
       }
     });
       
     
   }
-
-  // tryLogin(value) {
-  //   this.authService.doLogin(value)
-  //     .then(res => {
-  //       this.router.navigate(['/user']);
-  //     }, err => {
-  //       console.log(err);
-  //       this.errorMessage = err.message;
-  //     })
-  // }
-
-
-
 }
