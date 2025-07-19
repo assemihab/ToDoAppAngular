@@ -1,9 +1,7 @@
 import { computed, Injectable, signal } from '@angular/core';
 import { todo, todoNoId } from '../models/todo.model';
-import { fromFetch } from 'rxjs/fetch';
-import { catchError, map, switchMap } from 'rxjs/operators';
-import { from, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
@@ -37,12 +35,12 @@ export class TasksService {
     }
     return [...todos].sort((a, b) => a.priority - b.priority); 
   });
-  // https://firestore.googleapis.com/v1beta1/projects/todo-ab144/databases/(default)/documents/todos?documentId=${documentID}
   addTodo(todo: todoNoId, objectID?: string) {
     const randomidstring = objectID;
     console.log('the todo to add', todo);
     const UID = JSON.parse(localStorage.getItem('authData')!).localId;
-    const URL= `https://firestore.googleapis.com/v1beta1/projects/todo-2a989/databases/(default)/documents/users/${UID}/todos?documentId=${randomidstring}`;
+
+    const URL= `${environment.myCollectionEndPoint}${UID}/todos?documentId=${randomidstring}`;
 
     const headers = {
       'Content-Type': 'application/json'
@@ -58,11 +56,9 @@ export class TasksService {
   }
   getTodos() {
     const UID = JSON.parse(localStorage.getItem('authData')!).localId;
-    //https://firestore.googleapis.com/v1/projects/todo-2a989/databases/(default)/documents/users/{userId}/todos
-    const URL=`https://firestore.googleapis.com/v1beta1/projects/todo-2a989/databases/(default)/documents/users/${UID}/todos`
+    const URL=`${environment.myCollectionEndPoint}${UID}/todos`
     return this.http.get<{ documents: any[] }>(URL)
   }
-  // https://firestore.googleapis.com/v1beta1/projects/todo-ab144/databases/(default)/documents/todos/${objectID}?updateMask.fieldPaths=${fieldPaths}
   updateTodoStatus(id: string, status: 'pending' | 'completed') {
     const updatedTodo: todoNoId = {
       name: this.tasks().find((todo) => todo.id === id)?.name || '',
@@ -78,16 +74,14 @@ export class TasksService {
       'Content-Type': 'application/json'
     };
     const UID = JSON.parse(localStorage.getItem('authData')!).localId;
-    const URL= `https://firestore.googleapis.com/v1beta1/projects/todo-2a989/databases/(default)/documents/users/${UID}/todos/${id}?updateMask.fieldPaths=status`;
-    // https://firestore.googleapis.com/v1/projects/todo-2a989/databases/(default)/documents/users/{userId}/todos
+    const URL= `${environment.myCollectionEndPoint}${UID}/todos/${id}?updateMask.fieldPaths=status`;
     return this.http.patch(URL, body, { headers: headers })
     
   }
-  // https://firestore.googleapis.com/v1beta1/projects/todo-ab144/databases/(default)/documents/todos/${documentID}
 
   deleteTodo(id: string) {
     const UID = JSON.parse(localStorage.getItem('authData')!).localId;
-    const URL = `https://firestore.googleapis.com/v1beta1/projects/todo-2a989/databases/(default)/documents/users/${UID}/todos/${id}`;
+    const URL = `${environment.myCollectionEndPoint}${UID}/todos/${id}`;
     return this.http.delete(URL);
        
   }

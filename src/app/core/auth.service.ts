@@ -25,7 +25,8 @@ export class AuthService {
   doLogin(value:any){
     
     const apikey= environment.firebase.apiKey;
-    const URL=`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apikey}`;
+    const signInUrl = environment.signInUrl ;
+    const URL=`${signInUrl}${apikey}`;
 
     const headers = {
       'Content-Type': 'application/json'
@@ -41,7 +42,8 @@ export class AuthService {
   }
   doSignUp(value:any){
     const apikey= environment.firebase.apiKey;
-    const URL=`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apikey}`;
+    const signUpUrl = environment.signUpUrl ;
+    const URL=`${signUpUrl}${apikey}`;
     const headers = {
       'Content-Type': 'application/json'
     };

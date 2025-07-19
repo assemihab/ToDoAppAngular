@@ -25,7 +25,7 @@ describe('AuthService', () => {
     });
 
     const req = httpMock.expectOne(
-      `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebase.apiKey}`
+      `${environment.signInUrl}${environment.firebase.apiKey}`
     );
 
     expect(req.request.method).toBe('POST');
@@ -46,7 +46,7 @@ describe('AuthService', () => {
     });
 
     const req = httpMock.expectOne(
-      `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebase.apiKey}`
+      `${environment.signUpUrl}${environment.firebase.apiKey}`
     );
 
     expect(req.request.method).toBe('POST');

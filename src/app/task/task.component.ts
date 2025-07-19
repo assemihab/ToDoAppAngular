@@ -13,7 +13,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 export class TaskComponent {
   data = input.required<todo>();
   constructor(private tasksService: TasksService) {}
-  // isChecked = computed(() => this.data().status === 'completed');
   isLoading = signal(false);
 
   deleteTodo() {
@@ -27,9 +26,13 @@ export class TaskComponent {
       },
       error: (error) => {
         console.error('Error deleting todo:', error);
+        window.alert(
+          'An error occurred while deleting the todo. Please try again.'
+        );
+        this.isLoading.set(false);
       },
       complete: () => {
-        console.log('Todo deleted successfully');
+        this.isLoading.set(false);
       },
     });
   }
@@ -53,9 +56,13 @@ export class TaskComponent {
         },
         error: (error) => {
           console.error('Error updating todo status:', error);
+          window.alert(
+            'An error occurred while updating the todo status. Please try again.'
+          );
+          this.isLoading.set(false);
         },
         complete: () => {
-          console.log('Todo status updated successfully');
+          this.isLoading.set(false);
         },
       });
     
