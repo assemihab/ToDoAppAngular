@@ -1,8 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import { TasksService } from './tasks.service';
-// import { todo } from '../models/todo.model';
-import { of, throwError } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { mockTodos } from '../mock/mock-data';
 import { PartialMockTasksService } from '../mock/partialMockTasksServce.service';

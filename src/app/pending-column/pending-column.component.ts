@@ -17,7 +17,6 @@ import { Status } from '../models/status.enum';
   styleUrl: './pending-column.component.css',
 })
 export class PendingColumnComponent {
-  // dataa: todo = { id: '1', name: 'assem', priority: 3, status: 'pending' };
   @Output() addTodo = new EventEmitter();
   sorted = this.taskService.pendingsorted;
   constructor(public taskService: TasksService) {}
@@ -27,7 +26,7 @@ export class PendingColumnComponent {
   }
 
   addNewTodo() {
-    // Logic to add a new todo item
+
     this.addTodo.emit();
   }
   drop(event: any) {
