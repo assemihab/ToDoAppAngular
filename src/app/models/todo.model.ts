@@ -1,14 +1,17 @@
-export type TaskStatus = 'pending' | 'completed';
+import { Status } from "./status.enum";
+
+
+
 
 export interface todo {
   id: string;
   name: string;
   priority: number;
-  status: TaskStatus;
+  status: Status;
 }
 
 export interface todoNoId {
   name: string;
   priority: number;
-  status: TaskStatus;
+  status: Status;
 }

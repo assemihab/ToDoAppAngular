@@ -1,7 +1,8 @@
 import { computed, Injectable, signal } from '@angular/core';
-import { todo, todoNoId } from '../models/todo.model';
+import {  todo, todoNoId } from '../models/todo.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { Status } from '../models/status.enum';
 @Injectable({
   providedIn: 'root',
 })
@@ -15,7 +16,7 @@ export class TasksService {
   readonly pendingTodos = computed(() => {
     const search = this.searchcritiriaa(); 
     const todos = this.tasks().filter(
-      (todo) => todo.status === 'pending' && todo.name.includes(search)
+      (todo) => todo.status === Status.Pending && todo.name.includes(search)
     );
 
     if (!this.pendingsorted()) {
@@ -28,7 +29,7 @@ export class TasksService {
   readonly completedTodos = computed(() => {
     const search = this.searchcritiriaa(); 
     const todos = this.tasks().filter(
-      (todo) => todo.status === 'completed' && todo.name.includes(search)
+      (todo) => todo.status === Status.Completed && todo.name.includes(search)
     );
     if (!this.completedsorted()) {
       return todos;
@@ -59,7 +60,7 @@ export class TasksService {
     const URL=`${environment.myCollectionEndPoint}${UID}/todos`
     return this.http.get<{ documents: any[] }>(URL)
   }
-  updateTodoStatus(id: string, status: 'pending' | 'completed') {
+  updateTodoStatus(id: string, status: Status) {
     const updatedTodo: todoNoId = {
       name: this.tasks().find((todo) => todo.id === id)?.name || '',
       priority: this.tasks().find((todo) => todo.id === id)?.priority || 0,

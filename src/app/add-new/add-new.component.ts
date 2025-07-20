@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { TasksService } from '../core/tasks.service';
 import { FormsModule } from '@angular/forms';
+import { Status } from '../models/status.enum';
+
 @Component({
   selector: 'app-add-new',
   standalone: true,
@@ -13,7 +15,7 @@ export class AddNewComponent {
   constructor(private taskService: TasksService) {}
   name = '';
   priority = 1;
-  status = 'pending';
+  status = Status.Pending;
 
   onSubmit() {
     console.log(
@@ -23,7 +25,7 @@ export class AddNewComponent {
     const todowithoutId = {
       name: this.name,
       priority: this.priority,
-      status: this.status as 'pending' | 'completed',
+      status: this.status as Status,
     };
 
     this.taskService.addTodo(todowithoutId, timestampID).subscribe({

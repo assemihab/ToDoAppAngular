@@ -2,6 +2,7 @@ import { Component, input, signal, computed } from '@angular/core';
 import { todo } from '../models/todo.model';
 import { TasksService } from '../core/tasks.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Status } from '../models/status.enum';
 
 @Component({
   selector: 'app-task',
@@ -11,6 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   styleUrl: './task.component.css',
 })
 export class TaskComponent {
+  Status = Status;
   data = input.required<todo>();
   constructor(private tasksService: TasksService) {}
   isLoading = signal(false);
@@ -40,7 +42,7 @@ export class TaskComponent {
     
     const updatedTodo: todo = {
       ...this.data(),
-      status: this.data().status === 'completed' ? 'pending' : 'completed',
+      status: this.data().status === Status.Completed ? Status.Pending : Status.Completed,
     };
     this.isLoading.set(true);
     this.tasksService
