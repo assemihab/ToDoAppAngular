@@ -4,12 +4,13 @@
     <mat-spinner [diameter]="20"></mat-spinner>
   }
   @else{
+    <button (click)="toggleStatus()">
     <input
       type="checkbox"
       [checked]="data().status === 'completed'"
-      (change)="toggleStatus($event)"
       class="todo-checkbox"
     />
+    </button>
 
   }
 

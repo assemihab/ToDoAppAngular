@@ -36,11 +36,11 @@ export class TaskComponent {
       },
     });
   }
-  toggleStatus(checked: any): void {
-    const checkedd = checked.target.checked;
+  toggleStatus(): void {
+    
     const updatedTodo: todo = {
       ...this.data(),
-      status: checkedd ? 'completed' : 'pending',
+      status: this.data().status === 'completed' ? 'pending' : 'completed',
     };
     this.isLoading.set(true);
     this.tasksService
