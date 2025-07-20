@@ -2,7 +2,7 @@ import { of } from "rxjs";
 import { TasksService } from "../core/tasks.service";
 import { HttpClient } from "@angular/common/http";
 import { Injectable, Signal, WritableSignal, signal } from "@angular/core";
-import { todo, TaskStatus } from "../models/todo.model";
+import { todo } from "../models/todo.model";
 import { mockTodos } from "./mock-data";
 
 @Injectable(
