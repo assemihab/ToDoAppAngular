@@ -79,6 +79,11 @@ export class TasksService {
     return this.http.patch(URL, body, { headers: headers })
     
   }
+  UpdateTodosStatusLocally(todoID: string,newstatus: Status) {
+    this.tasks.update((todos) => todos.map((todo) => todo.id ==todoID ? { ...todo, status: newstatus } : todo));
+
+
+  }
 
   deleteTodo(id: string) {
     const UID = JSON.parse(localStorage.getItem('authData')!).localId;

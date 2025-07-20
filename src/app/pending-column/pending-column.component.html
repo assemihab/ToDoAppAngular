@@ -19,6 +19,7 @@
     class="pending-todos-list p-5 container border border-1 rounded"
     cdkDropList
     [cdkDropListConnectedTo]="['completed-todos-list']"
+    (cdkDropListDropped)="drop($event)"
     > @for (task of this.taskService.pendingTodos(); track task.name) {
     <li>
       <app-task [data]="task" cdkDrag  [cdkDragData]="task"></app-task>
