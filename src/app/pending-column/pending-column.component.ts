@@ -2,19 +2,16 @@ import {
   Component,
   Output,
   EventEmitter,
-  output,
-  computed,
-  signal,
 } from '@angular/core';
 import { TaskComponent } from '../task/task.component';
-// import { TaskStatus } from '../models/todo.model';
-import { todo } from '../models/todo.model';
+
 import { TasksService } from '../core/tasks.service';
+import { CdkDropList, DragDropModule } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-pending-column',
   standalone: true,
-  imports: [TaskComponent],
+  imports: [TaskComponent, DragDropModule],
   templateUrl: './pending-column.component.html',
   styleUrl: './pending-column.component.css',
 })

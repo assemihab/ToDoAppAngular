@@ -17,9 +17,11 @@
   <div
     id="pending-todos-list"
     class="pending-todos-list p-5 container border border-1 rounded"
-  > @for (task of this.taskService.pendingTodos(); track task.name) {
+    cdkDropList
+    [cdkDropListConnectedTo]="['completed-todos-list']"
+    > @for (task of this.taskService.pendingTodos(); track task.name) {
     <li>
-      <app-task [data]="task"></app-task>
+      <app-task [data]="task" cdkDrag  [cdkDragData]="task"></app-task>
     </li>
   }
   </div>

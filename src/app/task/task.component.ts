@@ -14,7 +14,7 @@ import { Status } from '../models/status.enum';
 export class TaskComponent {
   Status = Status;
   data = input.required<todo>();
-  constructor(private tasksService: TasksService) {}
+  constructor(public tasksService: TasksService) {}
   isLoading = signal(false);
 
   deleteTodo() {
